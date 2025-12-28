@@ -1,0 +1,55 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Hero */
+.hero-section {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    padding: 60px 0;
+}
+
+/* Cards libros */
+.card-book {
+    transition: transform 0.3s;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-book:hover {
+    transform: translateY(-10px);
+}
+
+.book-img {
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Badge vistas */
+.badge-views {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+/* Autores influencers */
+.influencer-box {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.influencer-item {
+    background: transparent;
+    color: white;
+    border-color: #6c757d;
+}
+body { background-color: #f4f7f6; height: 100vh; display: flex; align-items: center; }
+        .card-login { border: none; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .btn-login { border-radius: 10px; padding: 10px; font-weight: 600; }

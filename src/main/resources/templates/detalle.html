@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Libro | FISI Libros</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        .book-cover-detail {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            max-height: 500px;
+            object-fit: cover;
+        }
+        .badge-category {
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <div th:replace="~{includes/menu :: menu}"></div>
+
+    <div class="container mt-5 mb-5">
+        <div class="mb-4">
+            <a th:href="@{/catalogo}" class="btn btn-outline-secondary btn-sm rounded-pill">
+                <i class="bi bi-arrow-left me-1"></i> Volver al Catálogo
+            </a>
+        </div>
+
+        <div class="row g-5">
+            <div class="col-md-5 col-lg-4 text-center">
+                <img th:src="${libro.portadaUrl}" class="img-fluid book-cover-detail w-100" alt="Portada del libro">
+                
+                <div class="mt-4 p-3 bg-white rounded-3 shadow-sm border">
+                    <p class="text-muted small mb-1">ID del Recurso</p>
+                    <code class="fw-bold text-primary" th:text="${'FISI-' + libro.id}">ID</code>
+                    <hr class="my-2">
+                    <p class="text-muted small mb-1">Vistas totales</p>
+                    <span class="badge bg-light text-dark border" th:text="${libro.vistas + ' visualizaciones'}">0 vistas</span>
+                </div>
+            </div>
+
+            <div class="col-md-7 col-lg-8">
+                <span class="badge bg-primary-subtle text-primary badge-category mb-2" th:text="${libro.categoria}">Categoría</span>
+                <h1 class="display-4 fw-bold text-dark mb-2" th:text="${libro.titulo}">Título del Libro</h1>
+                <p class="lead text-secondary mb-4">
+                    Escrito por <strong class="text-dark" th:text="${libro.autorUsuario.nombre}">Nombre del Autor</strong>
+                </p>
+
+                <div class="mb-5">
+                    <h5 class="fw-bold border-bottom pb-2 mb-3">Sinopsis</h5>
+                    <p class="text-muted fs-5" style="text-align: justify; line-height: 1.8;" th:text="${libro.sinopsis}">
+                        No hay descripción disponible para este libro.
+                    </p>
+                </div>
+
+                <div class="row g-3 mb-5">
+                    <div class="col-sm-6">
+                        <div class="p-3 bg-white border rounded-3 h-100">
+                            <small class="text-muted d-block mb-1">ISBN</small>
+                            <span class="fw-bold" th:text="${libro.isbn != null and !libro.isbn.isEmpty() ? libro.isbn : 'N/A'}">ISBN</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="p-3 bg-white border rounded-3 h-100">
+                            <small class="text-muted d-block mb-1">Estado en Biblioteca</small>
+                            <span class="text-success fw-bold">● Disponible Online</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-3 d-md-flex">
+                    <a th:href="${libro.archivoUrl}" target="_blank" class="btn btn-primary btn-lg px-5 shadow">
+                        <i class="bi bi-book-half me-2"></i> Leer en Línea (PDF)
+                    </a>
+                    
+                    <a th:if="${session.usuarioLogueado != null and session.usuarioLogueado.rol.name() == 'AUTOR' and session.usuarioLogueado.id == libro.autorUsuario.id}"
+                       th:href="@{/reportes}" class="btn btn-outline-dark btn-lg px-4">
+                        <i class="bi bi-graph-up me-2"></i> Ver Estadísticas
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="~{includes/footer :: footer}"></footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

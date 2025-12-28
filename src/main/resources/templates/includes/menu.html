@@ -1,0 +1,39 @@
+<nav th:fragment="menu" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/"><i class="bi bi-book-half me-2"></i>FISI Libros</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="/catalogo">Catálogo</a></li>
+                <li class="nav-item"><a class="nav-link" href="/ajustes">Ajustes</a></li>
+                <li class="nav-item" th:if="${session.usuarioLogueado != null and session.usuarioLogueado.rol.name() == 'AUTOR'}">
+                    <a class="nav-link" th:href="@{/reportes}">
+                        <i class="bi bi-graph-up me-1"></i> Reportes
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item" th:if="${session.usuarioLogueado == null}">
+                    <a class="btn btn-primary btn-sm" href="/login">Iniciar Sesión</a>
+                </li>
+                <li class="nav-item dropdown" th:if="${session.usuarioLogueado != null}">
+                    <a class="nav-link dropdown-toggle text-white fw-bold" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle me-1"></i>
+                        <span th:text="${session.usuarioLogueado.nombre}">Nombre</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li th:if="${session.usuarioLogueado.rol.name() == 'AUTOR'}">
+                            <a class="dropdown-item" href="/libros/nuevo">Subir Libro</a>
+                        </li>
+                        <li><a class="dropdown-item" href="/perfil">Mi Perfil</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="/logout">Cerrar Sesión</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
